@@ -17,6 +17,18 @@ Este projecto é uma API de processamento de pagamentos construída para garanti
 ## 📖 Sobre o Projeto
 O foco central desta aplicação é a robustez. O sistema lida com o desafio crítico de evitar cobranças duplicadas em pagamentos e garantir que o serviço permaneça funcional mesmo sob falhas de rede em gateways externos.
 
+
+## 🧱 Arquitetura
+
+O projecto segue os princípios de Clean Architecture, dividido em:
+
+- **Domain (Core)** → regras de negócio puras
+- **Application** → casos de uso
+- **Infrastructure** → integrações externas (DB, Redis, APIs)
+- **Interface (EntryPoint / Controllers)** → camada HTTP
+
+
+
 ## ✨ Principais Funcionalidades
 
 ### 💳 Processamento de Pagamentos
@@ -88,8 +100,8 @@ O foco central desta aplicação é a robustez. O sistema lida com o desafio cr�
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/alfredobaptista/banking-application.git
-cd banking-application
+git clone https://github.com/alfredobaptista/resilient-payment-gateway
+cd resilient-payment-gateway
 ```
 
 ### 2. Configure o ambiente (dev)
@@ -98,7 +110,7 @@ cd banking-application
 ```json
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/banking_db
+    url: jdbc:postgresql://localhost:5432/gateway_db
     username: postgres
     password: sua_senha_forte
   flyway:
@@ -119,14 +131,13 @@ mvn spring-boot:run -Dspring.profiles.active=dev
 
 # Opção 2 - Jar
 mvn clean package
-java -jar target/banking-api-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
+java -jar target/resilient-payment-gateway
+cd-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev
 ```
 
 ### 4. Acesse a documentação Swagger
 
 ```json
-http://localhost:8080/swagger-ui.html
-# ou
 http://localhost:8080/swagger-ui/index.html
 ```
 
@@ -143,7 +154,8 @@ http://localhost:8080/swagger-ui/index.html
 
 ```bash
 # Build da imagem
-docker build -t banking-api:latest .
+docker build -t resilient-payment-gateway .
+
 
 # Executar
 docker-compose up --build
@@ -159,13 +171,12 @@ mvn test
 
 ## 📸 Capturas de Ecrã
 
-![Swagger UI](/docs/images/swegger.PNG)
-
-![Exemplo de Pagamento](/docs//images/transaction.PNG)
+![Swagger UI](/docs/images/swagger.PNG)
+![Swagger UI](/docs/images/swagger1.PNG)
+![Exemplo de Pagamento](/docs//images/pagamento.PNG)
 
 ## 👤 Autor
-
-**Alfredo Fernando Baptista**
+**Alfredo Baptista**
 
 - GitHub: [@alfredobaptista](https://github.com/alfredobaptista)
 - LinkedIn: [linkedin.com/in/alfredobaptista](https://www.linkedin.com/in/alfredobaptista)
@@ -174,30 +185,4 @@ mvn test
 ## 🙌 Contribuições
 Contribuições são super bem-vindas!  
 Podes abrir *issues* para sugestões/bugs ou *pull requests* com melhorias.
-Gostaste? Dá uma ⭐ no repositório para apoiar o projeto! 🚀
-
-
-
-
-
-
-
-Recentemente, mergulhei fundo no desafio de construir um Payment Gateway que fosse, acima de tudo, resiliente. 
-Sabemos que, no mundo das fintechs e sistemas de alta performance, não basta apenas "fazer o pedido chegar ao destino". 
-O segredo está em como o sistema se comporta quando as coisas dão errado.
-
-Desenvolvi um serviço de pagamentos onde o foco total foi a confiabilidade:
-
-✅ Idempotência: Garanti que pagamentos não sejam processados em duplicidade, mesmo em casos de falhas de rede.
-✅ Resiliência: Implementei o Circuit Breaker (com Resilience4j) para evitar falhas em cascata quando o gateway externo apresenta instabilidade.
-✅ Arquitetura Moderna: Estruturei o projeto seguindo os padrões de mercado, utilizando FeignClient para integração declarativa e garantindo o desacoplamento entre domínio e infraestrutura.
-✅ Observabilidade & Documentação: API documentada com Swagger e monitorada via Spring Boot Actuator.
-✅ Infraestrutura como Código: O ambiente completo (App + Postgres + Redis) sobe com um único comando docker-compose up.
-
-Este projeto foi um exercício intenso de boas práticas e, acima de tudo, de pensamento crítico sobre como construir sistemas que suportam carga e garantem a integridade dos dados.
-
-Convido os desenvolvedores e entusiastas da área a conferirem o código no GitHub. Feedbacks são sempre bem-vindos!
-
-🔗 Link para o repositório: [COLE O LINK DO SEU GITHUB AQUI]
-
-#Java #SpringBoot #Fintech #SoftwareEngineering #Resiliencia #DesenvolvimentoSoftware #JavaDeveloper  #CleanArchitecture #AngolaTech
+Gostaste? Dá uma ⭐ no repositório para apoiar o projecto! 🚀
