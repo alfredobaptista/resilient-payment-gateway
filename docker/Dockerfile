@@ -1,12 +1,14 @@
-# 1. Fase de Build (Maven)
-FROM maven:3.9-eclipse-temurin-17 AS build
-COPY . /app
-WORKDIR /app
-RUN mvn clean package -DskipTests
+# Usar uma imagem base do OpenJDK
+FROM openjdk:17-jdk-alpine
 
-# 2. Fase de Execução (JRE leve)
-FROM eclipse-temurin:17-jre-alpine
+# Criar diretório de trabalho dentro do container
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+# Copiar o JAR gerado pelo Maven para dentro do container
+COPY target/*.jar app.jar
+
+# Expor a porta padrão do Spring Boot
 EXPOSE 8080
+
+# Comando de inicialização
 ENTRYPOINT ["java", "-jar", "app.jar"]
