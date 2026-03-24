@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: resilient-payment-gateway
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+# -----------------------------------------------
+# Resilience4j — base partilhada por todos os perfis
+# -----------------------------------------------
+resilience4j:
+  circuitbreaker:
+    instances:
+      stripe:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 60s
+        permittedNumberOfCallsInHalfOpenState: 5
+        automaticTransitionFromOpenToHalfOpenState: true
+        slowCallDurationThreshold: 2s
+        slowCallRateThreshold: 80
+        minimumNumberOfCalls: 5
+  retry:
+    instances:
+      stripe:
+        maxAttempts: 3
+        waitDuration: 500ms
+        retryExceptions:
+          - java.net.ConnectException
+          - java.util.concurrent.TimeoutException
+          - feign.RetryableException
+          - com.github.alfredobaptista.core.exception.GatewayUnavailableException
+
+# -----------------------------------------------
+# Idempotência — TTL no Redis
+# -----------------------------------------------
+payment:
+  idempotency:
+    ttl-hours: 24

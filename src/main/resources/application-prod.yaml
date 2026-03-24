@@ -1,0 +1,59 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1800000
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      timeout: 2000ms
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          stripe:
+            url: ${STRIPE_URL}
+
+  jpa:
+    show-sql: false
+
+server:
+  port: 8080
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+
+gateway:
+  stripe:
+    url: ${STRIPE_URL}
+    api-key: ${STRIPE_API_KEY}
+
+# -----------------------------------------------
+# Actuator — só o necessário exposto
+# -----------------------------------------------
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, circuitbreakers
+  endpoint:
+    health:
+      show-details: when-authorized
+  health:
+    circuitbreakers:
+      enabled: true
