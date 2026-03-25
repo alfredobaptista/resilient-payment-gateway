@@ -1,4 +1,4 @@
-package com.github.alfredobaptista.infrastructure.gateway; // ← pacote corrigido
+package com.github.alfredobaptista.infrastructure.gateway;
 
 import com.github.alfredobaptista.application.gateway.PaymentGatewayPort;
 import com.github.alfredobaptista.core.entity.Payment;
