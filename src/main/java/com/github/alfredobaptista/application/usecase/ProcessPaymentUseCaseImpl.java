@@ -55,8 +55,9 @@ public class ProcessPaymentUseCaseImpl implements ProcessPaymentUseCase {
             String transactionId = paymentGatewayPort.charge(payment);
             payment.approve(transactionId, clock);
         } catch (GatewayUnavailableException e) {
-            // Gateway indisponível — salva como FAILED e retorna sem relançar
             payment.fail(e.getMessage(), clock);
+            savePaymentGateway.save(payment);
+            throw e;
         }
         // Persiste o estado final (APPROVED ou FAILED)
         Payment savedPayment = savePaymentGateway.save(payment);
