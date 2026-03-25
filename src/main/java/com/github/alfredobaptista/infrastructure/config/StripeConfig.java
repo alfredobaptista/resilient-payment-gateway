@@ -12,7 +12,6 @@ public class StripeConfig {
 
     private final String apiKey;
 
-    // Injeção via construtor — mais seguro e testável
     public StripeConfig(@Value("${gateway.stripe.api-key}") String apiKey) {
         this.apiKey = apiKey;
     }
