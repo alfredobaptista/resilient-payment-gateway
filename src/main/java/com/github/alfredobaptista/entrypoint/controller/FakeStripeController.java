@@ -17,9 +17,8 @@ public class FakeStripeController {
 
         // 🔥 Simular timeout (slow call)
         if ("timeout".equalsIgnoreCase(scenario)) {
-            Thread.sleep(3000); // maior que 2s → ativa slowCall
+            Thread.sleep(3000); // maior que 2s → activa slowCall
         }
-
 
         // 🔥 Simular erro (falha)
         if ("error".equalsIgnoreCase(scenario)) {
