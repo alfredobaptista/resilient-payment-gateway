@@ -1,5 +1,8 @@
 package com.github.alfredobaptista.infrastructure.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public record ApiResponse<T>(
         boolean success,       // ✅ typo corrigido: "sucess" → "success"
         String message,
