@@ -1,4 +1,4 @@
-package com.github.alfredobaptista.infrastructure.gateway; // ← pacote corrigido
+package com.github.alfredobaptista.infrastructure.gateway;
 
 import com.github.alfredobaptista.infrastructure.config.StripeConfig;
 import com.github.alfredobaptista.infrastructure.dto.request.StripeChargeRequest;
