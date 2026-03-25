@@ -172,7 +172,7 @@ mvn test
 ## 📸 Capturas de Ecrã
 
 ![Swagger UI](/docs/images/swagger.PNG)
-![Swagger UI](/docs/images/swagger1.PNG)
+![Swagger UI](/docs/images/circuit-breaker.PNG)
 ![Exemplo de Pagamento](/docs//images/pagamento.PNG)
 
 ## 👤 Autor
